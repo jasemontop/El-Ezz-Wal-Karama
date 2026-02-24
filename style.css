@@ -151,6 +151,197 @@ main{ padding-top: var(--nav-height); }
   text-align:center;
   padding: 10px;
 }
+
+/* Hero waves: smaller, separated colored layers with distinct wavy motion */
+.hero__waves{
+  position:absolute;
+  inset:0 0 0 0;
+  pointer-events:none;
+  z-index:0;
+  overflow:visible;
+}
+.hero__waves .wave{
+  position:absolute;
+  left:50%;
+  transform: translateX(-50%);
+  width:90%;
+  height:32%;
+  /* more wavy, asymmetric radii */
+  border-radius: 62% 38% 72% 28% / 38% 58% 42% 62%;
+  filter: blur(12px);
+  opacity: .18; /* faded colors */
+  mix-blend-mode: normal;
+  pointer-events: none;
+  overflow: visible;
+}
+.hero__waves .wave--red{
+  background: radial-gradient(60% 60% at 50% 26%, rgba(122,31,31,0.62), rgba(122,31,31,0.36) 58%, transparent 88%);
+  top:-4%;
+  opacity:.26;
+}
+.hero__waves .wave--black{
+  background: radial-gradient(62% 62% at 50% 50%, rgba(0,0,0,0.66), rgba(0,0,0,0.36) 58%, transparent 88%);
+  top:40%;
+  opacity:.18;
+}
+.hero__waves .wave--green{
+  background: radial-gradient(60% 60% at 50% 74%, rgba(0,102,51,0.66), rgba(0,102,51,0.36) 58%, transparent 88%);
+  top:72%;
+  opacity:.22;
+}
+
+/* Distinct, wavy, horizontal offsets and slight vertical bobbing */
+.hero__waves .wave--red{ animation: redMove 10s ease-in-out infinite, redWobble 4.8s ease-in-out infinite, redBob 6.5s ease-in-out infinite, colorShift 48s linear infinite; }
+.hero__waves .wave--black{ animation: blackMove 14s ease-in-out infinite, blackWobble 6.2s ease-in-out infinite, blackBob 8s ease-in-out infinite, colorShift 48s linear infinite; }
+.hero__waves .wave--green{ animation: greenMove 12s ease-in-out infinite, greenWobble 5.2s ease-in-out infinite, greenBob 5.5s ease-in-out infinite, colorShift 48s linear infinite; }
+
+@keyframes redMove{
+  0%{ transform: translateX(-50%) translateY(0) scaleX(1); }
+  25%{ transform: translateX(-34%) translateY(-12px) scaleX(1.04); }
+  50%{ transform: translateX(-66%) translateY(10px) scaleX(0.96); }
+  75%{ transform: translateX(-38%) translateY(-14px) scaleX(1.06); }
+ 100%{ transform: translateX(-50%) translateY(0) scaleX(1); }
+}
+
+@keyframes blackMove{
+  0%{ transform: translateX(-50%) translateY(0) scaleX(1); }
+  20%{ transform: translateX(-62%) translateY(8px) scaleX(0.97); }
+  50%{ transform: translateX(-38%) translateY(-14px) scaleX(1.05); }
+  80%{ transform: translateX(-58%) translateY(6px) scaleX(0.96); }
+ 100%{ transform: translateX(-50%) translateY(0) scaleX(1); }
+}
+
+@keyframes greenMove{
+  0%{ transform: translateX(-50%) translateY(0) scaleX(1); }
+  30%{ transform: translateX(-36%) translateY(-10px) scaleX(1.03); }
+  60%{ transform: translateX(-64%) translateY(12px) scaleX(0.95); }
+ 100%{ transform: translateX(-50%) translateY(0) scaleX(1); }
+}
+
+/* very-slow subtle color drift to tie waves and olives together */
+@keyframes colorShift{
+  0%{ background-position: 0% 40%; transform: translateX(0) translateY(0) rotate(0deg); }
+  25%{ background-position: 15% 46%; transform: translateX(6px) translateY(-2px) rotate(0.15deg); }
+  50%{ background-position: 40% 52%; transform: translateX(-10px) translateY(4px) rotate(-0.12deg); }
+  75%{ background-position: 20% 44%; transform: translateX(6px) translateY(-3px) rotate(0.12deg); }
+ 100%{ background-position: 0% 40%; transform: translateX(0) translateY(0) rotate(0deg); }
+}
+
+/* Additional wobble animations for visible undulation */
+@keyframes redWobble{
+  0%{ transform: translateX(-50%) rotate(-0.4deg) skewX(-0.8deg); }
+  25%{ transform: translateX(-40%) rotate(0.8deg) skewX(0.6deg); }
+  50%{ transform: translateX(-56%) rotate(-0.6deg) skewX(-0.4deg); }
+  75%{ transform: translateX(-44%) rotate(0.9deg) skewX(0.7deg); }
+ 100%{ transform: translateX(-50%) rotate(-0.4deg) skewX(-0.8deg); }
+}
+@keyframes blackWobble{
+  0%{ transform: translateX(-50%) rotate(0deg) skewX(0deg); }
+  30%{ transform: translateX(-58%) rotate(-0.8deg) skewX(-0.6deg); }
+  60%{ transform: translateX(-42%) rotate(0.9deg) skewX(0.8deg); }
+ 100%{ transform: translateX(-50%) rotate(0deg) skewX(0deg); }
+}
+@keyframes greenWobble{
+  0%{ transform: translateX(-50%) rotate(0.2deg) skewX(0.2deg); }
+  40%{ transform: translateX(-42%) rotate(0.6deg) skewX(0.5deg); }
+  80%{ transform: translateX(-56%) rotate(-0.7deg) skewX(-0.5deg); }
+ 100%{ transform: translateX(-50%) rotate(0.2deg) skewX(0.2deg); }
+}
+
+@keyframes redBob{
+  0%,100%{ top:4%; }
+  50%{ top: calc(4% - 24px); }
+}
+@keyframes blackBob{
+  0%,100%{ top:36%; }
+  50%{ top: calc(36% + 28px); }
+}
+@keyframes greenBob{
+  0%,100%{ top:64%; }
+  50%{ top: calc(64% - 20px); }
+}
+
+/* Slightly reduce on small screens */
+@media (max-width: 640px){
+  .hero__waves .wave{ height:34%; filter: blur(12px); opacity:.18; }
+  .hero__waves .wave--red{ top:2%; }
+  .hero__waves .wave--black{ top:40%; }
+  .hero__waves .wave--green{ top:68%; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .hero__waves .wave{ animation:none !important; }
+}
+
+/* Olive-image overlays (use the attached image saved as images/olive-branch.png) */
+.oliveImage{
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: .22; /* more faded */
+  filter: blur(1px) saturate(105%);
+  pointer-events: none;
+  z-index: 3;
+  transition: opacity .3s ease, transform .3s ease;
+}
+.oliveImage--tl{
+  left: 6%;
+  top: 8%;
+  transform: translateY(-4%) rotate(180deg);
+  background-image: url('images/olive-branch.png');
+}
+.oliveImage--br{
+  right: 6%;
+  bottom: 10%;
+  width: 250px;
+  height: 250px;
+  transform: translateY(4%) rotate(12deg);
+  background-image: url('images/olive-branch.png');
+}
+
+/* gentle float to make them subtly animated but still faint */
+.oliveImage--tl{ animation: oliveFloatTL 12s ease-in-out infinite, oliveDriftTL 44s linear infinite; }
+.oliveImage--br{ animation: oliveFloatBR 14s ease-in-out infinite, oliveDriftBR 52s linear infinite; }
+
+@keyframes oliveFloatTL{
+  0%{ transform: translateY(-4%) rotate(-6deg) translateX(0); opacity:.28 }
+  50%{ transform: translateY(-8%) rotate(-2deg) translateX(6px); opacity:.34 }
+  100%{ transform: translateY(-4%) rotate(-6deg) translateX(0); opacity:.28 }
+}
+@keyframes oliveFloatBR{
+  0%{ transform: translateY(4%) rotate(12deg) translateX(0); opacity:.28 }
+  50%{ transform: translateY(8%) rotate(8deg) translateX(-6px); opacity:.32 }
+  100%{ transform: translateY(4%) rotate(12deg) translateX(0); opacity:.28 }
+}
+
+/* long slow drift paths for olives (subtle but mobile across hero) */
+@keyframes oliveDriftTL{
+  0%{ transform: translate3d(0,-4%,0) rotate(-18deg) scale(1); }
+  25%{ transform: translate3d(18px,-8%,0) rotate(-12deg) scale(.995); }
+  50%{ transform: translate3d(-22px,-10%,0) rotate(-20deg) scale(1.01); }
+  75%{ transform: translate3d(12px,-6%,0) rotate(-14deg) scale(.997); }
+ 100%{ transform: translate3d(0,-4%,0) rotate(-18deg) scale(1); }
+}
+@keyframes oliveDriftBR{
+  0%{ transform: translate3d(0,4%,0) rotate(12deg) scale(1); }
+  25%{ transform: translate3d(-14px,8%,0) rotate(8deg) scale(1.002); }
+  50%{ transform: translate3d(20px,10%,0) rotate(16deg) scale(.998); }
+  75%{ transform: translate3d(-8px,6%,0) rotate(10deg) scale(1.003); }
+ 100%{ transform: translate3d(0,4%,0) rotate(12deg) scale(1); }
+}
+
+@media (max-width:640px){
+  .oliveImage{ width: 96px; height: 96px; opacity:.2; filter: blur(1px); }
+  .oliveImage--tl{ left:7%; top:6%; }
+  .oliveImage--br{ right:7%; bottom:8%; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .oliveImage{ animation: none !important; }
+}
 .badge{
   display:inline-flex;
   padding:8px 14px;
@@ -584,6 +775,13 @@ main{ padding-top: var(--nav-height); }
 
 /* Team section */
 .team{ padding: 48px 0; }
+.team__title{
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.6rem;
+  text-align: center;
+  margin: 0;
+  color: var(--ink);
+}
 .team .teamGrid{ display:flex; gap:18px; align-items:center; justify-content:center; flex-wrap:wrap; margin-top:18px; }
 .teamMember{ width:140px; text-align:center; }
 .teamMember img{ width:96px; height:96px; object-fit:cover; border-radius:999px; border:4px solid rgba(255,255,255,.6); box-shadow: 0 10px 24px rgba(0,0,0,.06); }
