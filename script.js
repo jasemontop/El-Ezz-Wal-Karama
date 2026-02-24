@@ -43,3 +43,28 @@ if (prefersReduced) {
 if (!('IntersectionObserver' in window)) {
   reveals.forEach(r => r.classList.add('active'));
 }
+
+// Center target content when clicking items in the table of contents
+(() => {
+  const tocLinks = Array.from(document.querySelectorAll('.toc a[href^="#"]'));
+  if (!tocLinks.length) return;
+
+  tocLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (!href || !href.startsWith('#')) return;
+      const target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+
+      const smooth = !prefersReduced;
+      target.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'center' });
+
+      try {
+        history.pushState(null, '', href);
+      } catch (err) {
+        // ignore
+      }
+    });
+  });
+})();
