@@ -191,9 +191,9 @@ main{ padding-top: var(--nav-height); }
 }
 
 /* Distinct, wavy, horizontal offsets and slight vertical bobbing */
-.hero__waves .wave--red{ animation: redMove 10s ease-in-out infinite, redWobble 4.8s ease-in-out infinite, redBob 6.5s ease-in-out infinite, colorShift 48s linear infinite; }
-.hero__waves .wave--black{ animation: blackMove 14s ease-in-out infinite, blackWobble 6.2s ease-in-out infinite, blackBob 8s ease-in-out infinite, colorShift 48s linear infinite; }
-.hero__waves .wave--green{ animation: greenMove 12s ease-in-out infinite, greenWobble 5.2s ease-in-out infinite, greenBob 5.5s ease-in-out infinite, colorShift 48s linear infinite; }
+.hero__waves .wave--red{ animation: redMove 10s ease-in-out infinite, redWobble 4.8s ease-in-out infinite, redBob 6.5s ease-in-out infinite; }
+.hero__waves .wave--black{ animation: blackMove 14s ease-in-out infinite, blackWobble 6.2s ease-in-out infinite, blackBob 8s ease-in-out infinite; }
+.hero__waves .wave--green{ animation: greenMove 12s ease-in-out infinite, greenWobble 5.2s ease-in-out infinite, greenBob 5.5s ease-in-out infinite; }
 
 @keyframes redMove{
   0%{ transform: translateX(-50%) translateY(0) scaleX(1); }
@@ -216,15 +216,6 @@ main{ padding-top: var(--nav-height); }
   30%{ transform: translateX(-36%) translateY(-10px) scaleX(1.03); }
   60%{ transform: translateX(-64%) translateY(12px) scaleX(0.95); }
  100%{ transform: translateX(-50%) translateY(0) scaleX(1); }
-}
-
-/* very-slow subtle color drift to tie waves and olives together */
-@keyframes colorShift{
-  0%{ background-position: 0% 40%; transform: translateX(0) translateY(0) rotate(0deg); }
-  25%{ background-position: 15% 46%; transform: translateX(6px) translateY(-2px) rotate(0.15deg); }
-  50%{ background-position: 40% 52%; transform: translateX(-10px) translateY(4px) rotate(-0.12deg); }
-  75%{ background-position: 20% 44%; transform: translateX(6px) translateY(-3px) rotate(0.12deg); }
- 100%{ background-position: 0% 40%; transform: translateX(0) translateY(0) rotate(0deg); }
 }
 
 /* Additional wobble animations for visible undulation */
